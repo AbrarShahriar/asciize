@@ -12,4 +12,5 @@ export interface IScene {
   mapHeight: number;
   playerStartingX: number;
   playerStartingY: number;
+  label: string;
 }

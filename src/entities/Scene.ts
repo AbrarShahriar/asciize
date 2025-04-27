@@ -1,3 +1,4 @@
+import { generateIdFor } from "../helper";
 import { IScene } from "../types";
 import Player from "./dynamics/player";
 import StaticEntity from "./StaticEntity";
@@ -8,14 +9,18 @@ export default class Scene {
   player: Player | null;
   playerStartingX: number;
   playerStartingY: number;
+  id: Symbol;
   staticEntities: Map<string, StaticEntity>;
+  doorEntities: Map<string, Symbol>;
 
   constructor({
     mapHeight,
     mapWidth,
     playerStartingX,
     playerStartingY,
+    label,
   }: IScene) {
+    this.id = generateIdFor(label);
     this.player = null;
     this.MAP_HEIGHT = mapHeight;
     this.MAP_WIDTH = mapWidth;
@@ -23,13 +28,18 @@ export default class Scene {
     this.playerStartingY = playerStartingY;
 
     this.staticEntities = new Map<string, StaticEntity>();
+    this.doorEntities = new Map<string, Symbol>();
   }
 
   setPlayer(player: Player) {
     this.player = player;
     this.staticEntities.set(
-      `(${this.playerStartingX},${this.playerStartingY})`,
+      `(${this.playerStartingY},${this.playerStartingX})`,
       player
     );
+  }
+
+  getId(): Symbol {
+    return this.id;
   }
 }

@@ -9,3 +9,5 @@ export const createTileFrom = (str: string) =>
     .trim()
     .split("\n")
     .map((el) => el.split(""));
+
+export const generateIdFor = (str: string): Symbol => Symbol.for(str);
