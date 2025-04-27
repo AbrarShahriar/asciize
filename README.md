@@ -1,7 +1,7 @@
 # Primary Features
 
-- Enter/Exit building
+- [ ] Enter/Exit building
 - [x] Player Movement
-- [] Interaction with items
-- [] Equip items
-- [] Inventory
+- [ ] Interaction with items
+- [ ] Equip items
+- [ ] Inventory
