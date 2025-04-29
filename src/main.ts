@@ -1,5 +1,4 @@
 import Player from "./entities/dynamics/player";
-import Scene from "./entities/Scene";
 import SceneManager from "./entities/SceneManager";
 import Door from "./entities/statics/Door";
 import Floor from "./entities/statics/Floor";
@@ -17,8 +16,8 @@ class GameManager {
     const activeScene = this.sceneManager.getActiveScene();
 
     this.player = new Player({
-      x: activeScene.playerStartingX,
-      y: activeScene.playerStartingY,
+      x: 1,
+      y: 1,
     });
     this.player.setMapDimension(activeScene.MAP_WIDTH, activeScene.MAP_HEIGHT);
     this.sceneManager.setPlayer(this.player);
@@ -62,13 +61,10 @@ class GameManager {
     if (entityExistsAtNewPos) {
       // Check if the entity the player is trying to cross is a door
       if (entityExistsAtNewPos instanceof Door) {
-        const id = activeScene.doorEntities.get(
-          this.player.getPosKey()
-        ) as Symbol;
-        const scene = SceneManager.Scenes.get(id) as Scene;
-        this.sceneManager.setActiveScene(scene);
+        const door = entityExistsAtNewPos;
+        door.enter(this.sceneManager, this.player);
         activeScene = this.sceneManager.getActiveScene();
-        console.log("Entering, ", scene.id);
+        console.log("Entering, ", door.destination);
         return;
       }
 
