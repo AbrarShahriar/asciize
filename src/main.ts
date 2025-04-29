@@ -22,10 +22,12 @@ class GameManager {
     this.player.setMapDimension(activeScene.MAP_WIDTH, activeScene.MAP_HEIGHT);
     this.sceneManager.setPlayer(this.player);
 
-    document.addEventListener("keydown", (e) => this.setupInputHandler(e));
+    document.addEventListener("keydown", (e) =>
+      this.registerKeyboardEventHandlers(e)
+    );
   }
 
-  setupInputHandler(event: KeyboardEvent) {
+  registerKeyboardEventHandlers(event: KeyboardEvent) {
     console.log(event.key);
 
     let activeScene = this.sceneManager.getActiveScene();
@@ -37,20 +39,7 @@ class GameManager {
     const prevPos = this.player.getPos();
 
     // Based on key pressed, update the players position
-    switch (event.key) {
-      case "w":
-        this.player.move({ x: 0, y: -1 });
-        break;
-      case "s":
-        this.player.move({ x: 0, y: 1 });
-        break;
-      case "a":
-        this.player.move({ x: -1, y: 0 });
-        break;
-      case "d":
-        this.player.move({ x: 1, y: 0 });
-        break;
-    }
+    this.player.handleUserInput(event);
 
     // Get the updated position of the player
     const newPos = this.player.getPosKey();
